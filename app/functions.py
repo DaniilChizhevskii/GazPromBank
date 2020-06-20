@@ -488,4 +488,4 @@ def sayThanks(user_id, identifier):
 	cursor = conn.cursor()
 	cursor.execute('INSERT INTO voices VALUES ("thanks", %s, %s)' % (identifier, user_id))
 	conn.commit()
-	changeReputation(user_id, 10)
+	changeReputation(identifier, 10)
