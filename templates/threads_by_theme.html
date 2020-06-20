@@ -140,10 +140,10 @@
 							<div class="col-12 col-lg-12 col-xxl-9 d-flex">
 								<div class="card flex-fill">
 									<div class="card-header">
-										<h5 class="card-title mb-0"><b>Последние обсуждения</b></h5>
+										<h5 class="card-title mb-0">Последние обсуждения в теме "<b>{{selected_theme}}</b>"</h5>
 									</div>
 									<table class="table table-hover my-0">
-										{% if threads[0] %}
+										{% if threads %}
 											<thead>
 												<tr>
 													<th>Название</th>
@@ -154,7 +154,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												{% for thread in threads[0] %}
+												{% for thread in threads %}
 													<tr>
 														<td><a href="/thread/{{thread.id}}">{{thread.title}}</a></td>
 														<td class="d-none d-md-table-cell">{{thread.status}}</td>
@@ -172,19 +172,12 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td>Пока что нет ни одного обсуждения. <a href="/threads/new">Добавь новое!</a></td>
+													<td>Пока что в этом департаменте нет ни одного обсуждения. <a href="/threads/new">Добавь новое!</a></td>
 												</tr>
 											</tbody>
 										{% endif %}
 									</table>
 								</div>
-							</div>
-							<div class="btn-group" role="group" style="padding-left: 15px;">
-								<button type="button" class="btn btn-outline-primary" onclick="location.href='/threads/{{page - 1}}';">Назад</button>
-								<button type="button" class="btn btn-outline-primary">{{page}}</button>
-								{% if threads[1] - (page - 1) * 10 > 10 %}
-									<button type="button" class="btn btn-outline-primary" onclick="location.href='/threads/{{page + 1}}';">Далее</button>
-								{% endif %}
 							</div>
 						</div>
 					</div>

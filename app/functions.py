@@ -151,6 +151,19 @@ def getThreadsByDepartment(department):
 		threads[x]['date'] = fromTimestamp(threads[x]['date'])
 	return threads
 
+def getThreadsByTheme(theme):
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT id, title, date, up, down, status, views FROM threads WHERE theme="%s" ORDER BY date DESC' % screen(theme))
+	threads = cursor.fetchall()
+	threads = threads[:25]
+	for x in range(len(threads)):
+		threads[x] = dict(threads[x])
+		threads[x]['status'] = statusToText(threads[x]['status'])
+		threads[x]['date'] = fromTimestamp(threads[x]['date'])
+	return threads
+
 def getThreadsByUser(identifier):
 	conn = sqlite3.connect(db_path)
 	conn.row_factory = sqlite3.Row

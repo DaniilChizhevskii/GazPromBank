@@ -72,23 +72,6 @@
 					<a class="sidebar-toggle d-flex">
 					<i class="hamburger align-self-center"></i>
 					</a>
-					<form class="form-inline d-none d-sm-inline-block">
-						<div class="input-group input-group-navbar">
-							<form action="/threads" method="GET">
-								<select name="department" class="form-control">
-									<option value="Все департаменты" {% if 'Все департаменты'==selected_department %}selected{% endif %}>Все департаменты</option>
-						          	{% for department in departments %}
-						          		<option value="{{department}}" {% if department==selected_department %}selected{% endif %}>{{department}}</option>
-						          	{% endfor %}
-						        </select>
-								<div class="input-group-append">
-									<button class="btn" type="submit">
-						                <i class="align-middle" data-feather="search"></i>
-						            </button>
-								</div>
-							</form>
-						</div>
-					</form>
 					<div class="navbar-collapse collapse">
 						<ul class="navbar-nav navbar-align">
 							<li class="nav-item dropdown">
@@ -230,6 +213,46 @@
 							{% endif %}
 						{% endif %}
 						<div class="row">
+							<div class="col-6 col-lg-6 col-xxl-9 d-flex">
+								<div class="card flex-fill">
+									<div class="card-header">
+										<h5 class="card-title mb-0"><b>Найти обсуждения по департаменту</b></h5>
+									</div>
+									<div class="card-body">
+										<form action="/threads" method="GET">
+											<div class="form-group">
+												<select name="department" class="form-control">
+													<option value="Все департаменты">Все департаменты</option>
+										          	{% for department in departments %}
+										          		<option value="{{department}}">{{department}}</option>
+										          	{% endfor %}
+										        </select>
+											</div>
+										    <center><button type="submit" class="btn btn-outline-primary">Найти</button></center>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="col-6 col-lg-6 col-xxl-9 d-flex">
+								<div class="card flex-fill">
+									<div class="card-header">
+										<h5 class="card-title mb-0"><b>Найти обсуждения по теме</b></h5>
+									</div>
+									<div class="card-body">
+										<form action="/threads" method="GET">
+											<div class="form-group">
+												<select name="theme" class="form-control">
+													<option value="Все темы">Все темы</option>
+										          	{% for theme in themes %}
+										          		<option value="{{theme}}">{{theme}}</option>
+										          	{% endfor %}
+										        </select>
+											</div>
+										    <center><button type="submit" class="btn btn-outline-primary">Найти</button></center>
+										</form>
+									</div>
+								</div>
+							</div>
 							<div class="col-12 col-lg-12 col-xxl-9 d-flex">
 								<div class="card flex-fill">
 									<div class="card-header">

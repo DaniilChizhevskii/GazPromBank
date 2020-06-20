@@ -72,23 +72,6 @@
 					<a class="sidebar-toggle d-flex">
 					<i class="hamburger align-self-center"></i>
 					</a>
-					<form class="form-inline d-none d-sm-inline-block">
-						<div class="input-group input-group-navbar">
-							<form action="/threads" method="GET">
-								<select name="department" class="form-control">
-									<option value="Все департаменты" {% if 'Все департаменты'==selected_department %}selected{% endif %}>Все департаменты</option>
-						          	{% for department in departments %}
-						          		<option value="{{department}}" {% if department==selected_department %}selected{% endif %}>{{department}}</option>
-						          	{% endfor %}
-						        </select>
-								<div class="input-group-append">
-									<button class="btn" type="submit">
-						                <i class="align-middle" data-feather="search"></i>
-						            </button>
-								</div>
-							</form>
-						</div>
-					</form>
 					<div class="navbar-collapse collapse">
 						<ul class="navbar-nav navbar-align">
 							<li class="nav-item dropdown">
@@ -153,82 +136,6 @@
 				</nav>
 				<main class="content">
 					<div class="container-fluid p-0">
-						{% if message=='not_found' %}
-							<div class="alert alert-danger alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					                <span aria-hidden="true">&times;</span>
-					            </button>
-								<div class="alert-message">
-									Обсуждение, которое ты открыл, не найдено. Попробуй найти его в списке ниже.
-								</div>
-							</div>
-						{% else %}
-							{% if message=='voice' %}
-								<div class="alert alert-danger alert-dismissible" role="alert">
-									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						                <span aria-hidden="true">&times;</span>
-						            </button>
-									<div class="alert-message">
-										За обсуждение или комментарий можно проголосовать только один раз.
-									</div>
-								</div>
-							{% else %}
-								{% if message=='self' %}
-									<div class="alert alert-danger alert-dismissible" role="alert">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							                <span aria-hidden="true">&times;</span>
-							            </button>
-										<div class="alert-message">
-											Нельзя голосовать за свои же сообщения!
-										</div>
-									</div>
-								{% else %}
-									{% if message=='profile' %}
-										<div class="alert alert-danger alert-dismissible" role="alert">
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								                <span aria-hidden="true">&times;</span>
-								            </button>
-											<div class="alert-message">
-												Профиль, который ты открыл, не найден.
-											</div>
-										</div>
-									{% else %}
-										{% if message=='dont_know' %}
-											<div class="alert alert-warning alert-dismissible" role="alert">
-												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-									                <span aria-hidden="true">&times;</span>
-									            </button>
-												<div class="alert-message">
-													Ты перешёл по неизвестной ссылке, поэтому мы вернули тебя на страницу обсуждений.
-												</div>
-											</div>
-										{% else %}
-											{% if message=='no_access' %}
-												<div class="alert alert-danger alert-dismissible" role="alert">
-													<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-										                <span aria-hidden="true">&times;</span>
-										            </button>
-													<div class="alert-message">
-														Ты не имеешь доступа к данному обсуждению или комментарию.
-													</div>
-												</div>
-											{% else %}
-												{% if message=='poll' %}
-													<div class="alert alert-danger alert-dismissible" role="alert">
-														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-											                <span aria-hidden="true">&times;</span>
-											            </button>
-														<div class="alert-message">
-															Ты уже проголосовал в этом опросе.
-														</div>
-													</div>
-												{% endif %}
-											{% endif %}
-										{% endif %}
-									{% endif %}
-								{% endif %}
-							{% endif %}
-						{% endif %}
 						<div class="row">
 							<div class="col-12 col-lg-12 col-xxl-9 d-flex">
 								<div class="card flex-fill">
