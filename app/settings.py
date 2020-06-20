@@ -1,6 +1,6 @@
 import os
 
-home = '/root/GazProm/app'
+home = '/root/GazPromBank/app'
 static = os.path.join(home, '../static')
 templates = os.path.join(home, '../templates')
 secret_key = '\xe9\xb9\x95\x83ZZ\x94R7\x923kU\xea\xe4_=.\xe2\xf4\x97\xb6e*'
