@@ -1,0 +1,2 @@
+cd /root/GazProm
+/usr/bin/gunicorn3 --bind 0.0.0.0:443 --access-logfile=logs/access.log --error-logfile=logs/error.log --certfile=certificates/localhost.crt --keyfile=certificates/localhost.key -w=2 app.views:app
