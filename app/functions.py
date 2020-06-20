@@ -391,3 +391,10 @@ def pollFor(user_id, thread_id, variant):
 		survey[variant] += 1
 		saveSurvey(thread_id, survey)
 	return '/thread/%s' % thread_id
+
+def getGoods():
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT * FROM goods')
+	return cursor.fetchall()

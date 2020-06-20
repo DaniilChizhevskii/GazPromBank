@@ -247,6 +247,10 @@ def generateInvitesProcess():
 		generateInvite(session['id'])
 	return redirect('/invite?success=true')
 
+@app.route('/shop')
+def showShop():
+	return render_template('shop.html', user=getUser(session['id']), goods=getGoods())
+
 @app.errorhandler(404)
 def toThreads(error):
 	return redirect('/threads?from=dont_know')
