@@ -107,7 +107,7 @@ def createThread(owner, title, content, department):
 	cursor = conn.cursor()
 	cursor.execute('SELECT COUNT(*)+1 FROM threads')
 	identifier = cursor.fetchone()[0]
-	cursor.execute('INSERT INTO threads VALUES(%s, %s, "%s", "%s", %s, 0, 0, 0, "open", "%s")' % (identifier, owner, screen(title), screen(content), int(time.time()), department))
+	cursor.execute('INSERT INTO threads VALUES(%s, %s, "%s", "%s", %s, 0, 0, 0, "open", "%s")' % (identifier, owner, screen(title), screen(content), int(time.time()), screen(department)))
 	conn.commit()
 	giveBadge(owner, 'first_thread')
 	return identifier
@@ -225,12 +225,12 @@ def voiceFor(owner, number, target, identifier):
 		cursor.execute('SELECT thread_id FROM comments WHERE id=%s' % identifier)
 		return cursor.fetchone()[0]
 
-def saveSettings(user_id, name, email, password, status, about):
+def saveSettings(user_id, name, email, password, status, about, department):
 	if isNull(about):
 		about = 'Этот пользователь пока ничего о себе не написал...'
 	conn = sqlite3.connect(db_path)
 	cursor = conn.cursor()
-	cursor.execute('UPDATE users SET name="%s", email="%s", status="%s", description="%s" WHERE id=%s' % (screen(name), screen(email), screen(status), screen(about), user_id))
+	cursor.execute('UPDATE users SET name="%s", email="%s", status="%s", description="%s", department="%s" WHERE id=%s' % (screen(name), screen(email), screen(status), screen(about), screen(department), user_id))
 	conn.commit()
 	if len(password) >= 8:
 		cursor.execute('UPDATE users SET password="%s" WHERE id=%s' % (screen(password), user_id))

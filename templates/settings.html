@@ -228,6 +228,16 @@
 													<textarea name="about" placeholder="Работаю в Газпромбанке уже целый день." style="height: 500px;">{{user.description}}</textarea>
 												</div>
 											</div>
+											<div class="form-row">
+												<div class="form-group col-md-12">
+													<label for="department">Департамент</label>
+													<select name="department" class="form-control mb-3">
+											          {% for department in departments %}
+											          	<option value="{{department}}">{{department}}</option>
+											          {% endfor %}
+											        </select>
+								             	</div>
+											</div>
 											<button type="submit" class="btn btn-primary">Сохранить настройки</button>
 										</form>
 									</div>
