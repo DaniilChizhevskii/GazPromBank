@@ -83,7 +83,7 @@ def registerUser(name, email, password):
 	cursor = conn.cursor()
 	cursor.execute('SELECT COUNT(*)+1 FROM users')
 	identifier = cursor.fetchone()[0]
-	cursor.execute('INSERT INTO users VALUES(%s, "%s", "%s", "%s", %s, %s, %s, "%s", "%s", %s, "%s")' % (identifier, screen(password), screen(email), 'Ура! Встречайте новичка!', 0, 0, 0, 'Пока этот пользователь ничего о себе не рассказал.', screen(name), 1, '[]'))
+	cursor.execute('INSERT INTO users VALUES(%s, "%s", "%s", "%s", %s, %s, %s, "%s", "%s", %s, "%s", "Не указан")' % (identifier, screen(password), screen(email), 'Ура! Встречайте новичка!', 0, 0, 0, 'Пока этот пользователь ничего о себе не рассказал.', screen(name), 1, '[]'))
 	conn.commit()
 	giveBadge(identifier, 'registered')
 	sendNotification(identifier, 'Поздравляем с регистрацией!', 'Теперь ты - полноценный пользователь нашего сервиса.', 'warning', 'sunrise', '/threads')
@@ -100,14 +100,14 @@ def getUser(identifier):
 		user['notifications'] = getNotifications(identifier)
 	return user
 
-def createThread(owner, title, content):
+def createThread(owner, title, content, department):
 	if isNull(content):
 		content = 'Автор обсуждения решил не раскрывать подробностей...'
 	conn = sqlite3.connect(db_path)
 	cursor = conn.cursor()
 	cursor.execute('SELECT COUNT(*)+1 FROM threads')
 	identifier = cursor.fetchone()[0]
-	cursor.execute('INSERT INTO threads VALUES(%s, %s, "%s", "%s", %s, 0, 0, 0, "open")' % (identifier, owner, screen(title), screen(content), int(time.time())))
+	cursor.execute('INSERT INTO threads VALUES(%s, %s, "%s", "%s", %s, 0, 0, 0, "open", "%s")' % (identifier, owner, screen(title), screen(content), int(time.time()), department))
 	conn.commit()
 	giveBadge(owner, 'first_thread')
 	return identifier

@@ -96,16 +96,17 @@ def listOfThreads():
 
 @app.route('/threads/new', methods=['GET'])
 def newThreadPage():
-	return render_template('new_thread.html', user=getUser(session['id']))
+	return render_template('new_thread.html', user=getUser(session['id']), departments=departments)
 
 @app.route('/threads/new', methods=['POST'])
 def newThreadProcess():
 	user = getUser(session['id'])
 	title = request.form.get('title')
 	content = request.form.get('content')
+	department = request.form.get('department')
 	if isNull(title):
 		return render_template('new_thread.html', user=user, title=title, content=content, error='Поле <b>Название обсуждения</b> является обязательным.')
-	identifier = createThread(user['id'], title, content)
+	identifier = createThread(user['id'], title, content, department)
 	if request.form.get('survey') == 'on':
 		survey = {}
 		for x in range(1, int(request.form.get('quantity')) + 1):

@@ -192,6 +192,17 @@
 												<textarea name="content" placeholder="Почему не Нефтьпромбанк и не Рыбпромбанк? Сможете объяснить? ;)" style="height: 500px;"></textarea>
 											</div>
 										</div>
+										<div class="form-row">
+											<div class="form-group col-md-12">
+												<label for="department">Департамент</label>
+												<select name="department" class="form-control mb-3">
+										          <option selected value="Не указан">Не указан</option>
+										          {% for department in departments %}
+										          	<option value="{{department}}">{{department}}</option>
+										          {% endfor %}
+										        </select>
+							             	</div>
+										</div>
 										<div class="form-group">
 											<label class="custom-control custom-checkbox m-0">
 							           	    	<input type="checkbox" class="custom-control-input" name="survey" id="issurvey" onchange="if (document.getElementById('issurvey').checked) {document.getElementById('survey').style.display='block';} else {document.getElementById('survey').style.display='none';}">
