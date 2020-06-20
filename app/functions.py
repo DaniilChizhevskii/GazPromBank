@@ -470,3 +470,22 @@ def getRating():
 		top[x] = dict(top[x])
 		top[x]['badges_length'] = len(json.loads(top[x]['badges']))
 	return top
+
+def getThanks(identifier):
+	conn = sqlite3.connect(db_path)
+	cursor = conn.cursor()
+	cursor.execute('SELECT COUNT(*) FROM voices WHERE target="thanks" AND id=%s' % identifier)
+	return cursor.fetchone()[0]
+
+def isThanked(user_id, identifier):
+	conn = sqlite3.connect(db_path)
+	cursor = conn.cursor()
+	cursor.execute('SELECT * FROM voices WHERE target="thanks" AND id=%s AND owner=%s' % (identifier, user_id))
+	return not (cursor.fetchone() == None)
+
+def sayThanks(user_id, identifier):
+	conn = sqlite3.connect(db_path)
+	cursor = conn.cursor()
+	cursor.execute('INSERT INTO voices VALUES ("thanks", %s, %s)' % (identifier, user_id))
+	conn.commit()
+	changeReputation(user_id, 10)

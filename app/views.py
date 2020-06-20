@@ -174,9 +174,17 @@ def showProfile(identifier):
 	for x in range(len(profile['badges'])):
 		profile['badges'][x] = badgeTypes[profile['badges'][x]][0]
 	if profile:
-		return render_template('profile.html', profile=profile, user=user, threads=getThreadsByUser(identifier), stats=getStats(identifier))
+		return render_template('profile.html', profile=profile, user=user, threads=getThreadsByUser(identifier), stats=getStats(identifier), thanks=getThanks(identifier), thanked=isThanked(user['id'], identifier), result=request.args.get('thanked'))
 	else:
 		return redirect('/threads?from=profile')
+
+@app.route('/thanks/<identifier>')
+def sayThanksProcess(identifier):
+	user = getUser(session['id'])
+	if not isThanked(user['id'], identifier):
+		sayThanks(user['id'], identifier)
+		return redirect('/profile/%s?thanked=true' % identifier)
+	return redirect('/profile/%s?thanked=false' % identifier)
 
 @app.route('/settings', methods=['GET'])
 def showSettings():

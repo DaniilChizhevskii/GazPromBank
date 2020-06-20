@@ -146,6 +146,26 @@
 								</div>
 							</div>
 						{% endif %}
+						{% if result=='true' %}
+							<div class="alert alert-success alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					                <span aria-hidden="true">&times;</span>
+					            </button>
+								<div class="alert-message">
+									Ты успешно поблагодарил этого пользователя.
+								</div>
+							</div>
+						{% endif %}
+						{% if result=='false' %}
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					                <span aria-hidden="true">&times;</span>
+					            </button>
+								<div class="alert-message">
+									Ты уже поблагодарил этого пользователя.
+								</div>
+							</div>
+						{% endif %}
 	                  <h1 class="h3 mb-3">{{profile.title}}</h1>
 	                  <div class="row">
 	                     <div class="col-md-4 col-xl-3">
@@ -169,6 +189,8 @@
 								  		<button type="button" class="btn btn-danger" style="margin-top: 5px; width: 100%;" onclick="location.href='/block/{{profile.id}}'"><i data-feather="user-x"></i> Заблокировать</button>
 								  	{% endif %}
 								  {% endif %}
+								  	<br>
+								  	<button type="button" class="btn btn-danger {% if profile.id == user.id or thanked %}disabled{% endif %}" style="margin-top: 5px; width: 100%;" onclick="location.href='/thanks/{{profile.id}}'"><i data-feather="heart"></i> Спасибо ({{thanks}})</button>
 	                            </div>
 	                        </div>
 	                     </div>
