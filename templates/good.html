@@ -60,7 +60,7 @@
 							<div class="mb-3 text-sm">
 								Значков: {{user.badges.__len__()}}.
 							</div>
-							<a href="/shop" class="btn btn-outline-primary btn-block disabled"><i data-feather="shopping-cart"></i> Магазин</a>
+							<a href="/shop" class="btn btn-outline-primary btn-block"><i data-feather="shopping-cart"></i> Магазин</a>
 							<a href="/rating" class="btn btn-outline-primary btn-block"><i data-feather="bar-chart"></i> Рейтинг</a>
 							<a href="/help" class="btn btn-outline-primary btn-block"><i data-feather="help-circle"></i> Помощь</a>
 						</div>
@@ -140,7 +140,7 @@
 							<div class="col-12 col-lg-12 col-xxl-9 d-flex">
 								<div class="card flex-fill">
 									<div class="card-header">
-										<h5 class="card-title mb-0"><b>Товар "{{good.name}}"</b></h5>
+										<h5 class="card-title mb-0"><b>Товар "{{good.name}}"</b> (у тебя {{user.rating}} &#9733;)</h5>
 									</div>
 									<div class="card-body">
 										{{good.description|safe}}
