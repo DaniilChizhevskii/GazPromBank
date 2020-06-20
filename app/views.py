@@ -13,14 +13,15 @@ app.debug = debug
 
 @app.before_request
 def checkAuth():
-	if request.path in ['/', '/login', '/register', '/forgot'] or request.path.startswith('/reset'):
+	if request.path in ['/', '/login', '/register', '/forgot']:
 		if 'id' in session.keys():
 			if getUser(session['id'])['blocked']:
 				del session['id']
 				return redirect('/login')
 			return redirect('/threads')
 	else:
-		if 'id' not in session.keys():
+		if 'id' not in session.keys() and not (request.path.startswith('/reset') or request.path.startswith('/static')):
+			print(request.path)
 			return redirect('/login')
 
 @app.route('/')
