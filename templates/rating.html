@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="shortcut icon" href="/static/img/icons/favicon.png" />
-		<title>{{good.name}}</title>
+		<title>Рейтинг</title>
 		<link href="/static/css/app.css" rel="stylesheet">
 	</head>
 	<body>
@@ -60,8 +60,8 @@
 							<div class="mb-3 text-sm">
 								Значков: {{user.badges.__len__()}}.
 							</div>
-							<a href="/shop" class="btn btn-outline-primary btn-block disabled"><i data-feather="shopping-cart"></i> Магазин</a>
-							<a href="/rating" class="btn btn-outline-primary btn-block"><i data-feather="bar-chart"></i> Рейтинг</a>
+							<a href="/shop" class="btn btn-outline-primary btn-block"><i data-feather="shopping-cart"></i> Магазин</a>
+							<a href="/rating" class="btn btn-outline-primary btn-block disabled"><i data-feather="bar-chart"></i> Рейтинг</a>
 							<a href="/help" class="btn btn-outline-primary btn-block"><i data-feather="help-circle"></i> Помощь</a>
 						</div>
 					</div>
@@ -140,14 +140,28 @@
 							<div class="col-12 col-lg-12 col-xxl-9 d-flex">
 								<div class="card flex-fill">
 									<div class="card-header">
-										<h5 class="card-title mb-0"><b>Товар "{{good.name}}"</b></h5>
+										<h5 class="card-title mb-0"><b>Пользователи с максимальным рейтингом</b></h5>
 									</div>
-									<div class="card-body">
-										{{good.description|safe}}
-										<hr>
-										<a href="/shop" class="btn btn-outline-primary"><i data-feather="arrow-left"></i> Назад в магазин</a>
-										<a href="/buy/{{good.id}}" class="btn btn-outline-primary {% if good.cost > user.rating %}disabled{% endif %}"><i data-feather="dollar-sign"></i> Купить ({{good.cost}} &#9733;)</a>
-									</div>
+									<table class="table table-hover my-0">
+										<thead>
+											<tr>
+												<th>Место</th>
+												<th width="60%">Имя</th>
+												<th width="20%">Рейтинг</th>
+												<th width="20%">Значки</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for x in range(top.__len__()) %}
+												<tr>
+													<td>{{x + 1}}</td>
+													<td><a href="/shop/{{top[x].id}}">{{top[x].name}}</a></td>
+													<td>{{top[x].rating}} &#9733;</td>
+													<td>{{top[x].badges_length}} <i data-feather="award"></i></td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>

@@ -459,3 +459,14 @@ def rejectOrder(identifier):
 	conn.commit()
 	sendNotification(order['owner'], 'Твой заказ отклонён', 'Списанный баллы возвращены на твой баланс.', 'danger', 'shopping-cart', '/shop')
 	changeReputation(order['owner'], getGood(order['good_id'])['cost'])
+
+def getRating():
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT name, rating, id, badges FROM users ORDER BY rating DESC LIMIT 10')
+	top = cursor.fetchall()
+	for x in range(len(top)):
+		top[x] = dict(top[x])
+		top[x]['badges_length'] = len(json.loads(top[x]['badges']))
+	return top

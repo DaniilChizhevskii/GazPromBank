@@ -300,6 +300,10 @@ def viewOrders():
 def showHelp():
 	return render_template('help.html', user=getUser(session['id']))
 
+@app.route('/rating')
+def showRating():
+	return render_template('rating.html', user=getUser(session['id']), top=getRating())
+
 @app.errorhandler(404)
 def toThreads(error):
 	return redirect('/threads?from=dont_know')
