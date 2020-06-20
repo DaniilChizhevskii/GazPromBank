@@ -76,7 +76,8 @@
 							<div class="mb-3 text-sm">
 								Значков: {{user.badges.__len__()}}.
 							</div>
-							<a href="/shop" class="btn btn-outline-primary btn-block">Перейти в магазин</a>
+							<a href="/shop" class="btn btn-outline-primary btn-block"><i data-feather="shopping-cart"></i> Магазин</a>
+							<a href="/about/reputation" class="btn btn-outline-primary btn-block"><i data-feather="help-circle"></i> Помощь</a>
 						</div>
 					</div>
 				</div>
@@ -339,6 +340,25 @@
 												{% endfor %}
 											</div>
 										{% endif %}
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header">
+										<h3><center>Поделиться профилем</center></h3>
+									</div>
+									<div class="card-body">
+										<div class="form-row">
+											<div class="form-group col-md-12">
+												<label for="url">Постоянная ссылка на твой профиль:</label>
+												<input type="text" class="form-control" required value="https://{{domain}}/profile/{{user.id}}" name="url" disabled="disabled">
+											</div>
+											<div class="form-group col-md-12" style="text-align: center!important;">
+												<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=20&color=white&data=https://{{domain}}/profile/{{user.id}}">
+											</div>
+											<div class="form-group col-md-12">
+												<a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=20&color=white&data=https://{{domain}}/profile/{{user.id}}" class="btn btn-outline-primary btn-block"><i data-feather="download"></i> Скачать QR</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

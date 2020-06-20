@@ -181,7 +181,7 @@ def showProfile(identifier):
 @app.route('/settings', methods=['GET'])
 def showSettings():
 	user = getUser(session['id'])
-	return render_template('settings.html', user=user, departments=departments)
+	return render_template('settings.html', user=user, departments=departments, domain=domain)
 
 @app.route('/settings', methods=['POST'])
 def saveSettingsProcess():
@@ -201,7 +201,7 @@ def saveSettingsProcess():
 	saveSettings(user['id'], name, email, password, status, about, department)
 	user = getUser(session['id'])
 	giveBadge(user['id'], 'autobiography')
-	return render_template('settings.html', error='success', user=user, departments=departments)
+	return render_template('settings.html', error='success', user=user, departments=departments, domain=domain)
 
 @app.route('/settings/avatar/<number>')
 def setAvatarProcess(number):
