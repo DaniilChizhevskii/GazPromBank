@@ -5,41 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="shortcut icon" href="/static/img/icons/favicon.png" />
-		<title>Новое обсуждение</title>
+		<title>{{good.name}}</title>
 		<link href="/static/css/app.css" rel="stylesheet">
-		<!-- TinyMCE -->
-		<script src="https://cdn.tiny.cloud/1/vqxsowjcxwejxijgazyh8zz0xjzt0wg6cm2qbkrujfdigxup/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-		<script>
-	    tinymce.init({
-	      selector: 'textarea',
-	      language: 'ru',
-		  init_instance_callback : function(editor) {
-		    var freeTiny = document.querySelector('.tox .tox-notification--in');
-		   freeTiny.style.display = 'none';
-		  }});
-	  	</script>
-	  	<style>
-	  		.tox-statusbar__branding {
-	  			display: none;
-	  		}
-	  	</style>
-	  	<script type="text/javascript">
-	  		var variants = 1;
-	  		function addVariant() {
-	  			variants++;
-	  			document.getElementById('variants').innerHTML += '<div class="form-row" id="variant_' + variants + '"><div class="form-group col-md-12"><input type="text" class="form-control" placeholder="Вариант ' + variants + '" name="variant_' + variants + '" minlength="1"></div></div>';
-	  			document.getElementById('delete').style.display = 'inline-block';
-	  			document.getElementsByName('quantity')[0].value = variants;
-	  		}
-	  		function deleteVariant() {
-	  			document.getElementById('variant_' + variants).remove();
-	  			variants--;
-	  			if (variants == 1) {
-	  				document.getElementById('delete').style.display = 'none';
-	  			}
-	  			document.getElementsByName('quantity')[0].value = variants;
-	  		}
-	  	</script>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -54,7 +21,7 @@
 							<i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Обсуждения</span>
 							</a>
 						</li>
-						<li class="sidebar-item active">
+						<li class="sidebar-item">
 							<a class="sidebar-link" href="/threads/new">
 							<i class="align-middle" data-feather="plus-circle"></i> <span class="align-middle">Новое обсуждение</span>
 							</a>
@@ -93,7 +60,7 @@
 							<div class="mb-3 text-sm">
 								Значков: {{user.badges.__len__()}}.
 							</div>
-							<a href="/shop" class="btn btn-outline-primary btn-block"><i data-feather="shopping-cart"></i> Магазин</a>
+							<a href="/shop" class="btn btn-outline-primary btn-block disabled"><i data-feather="shopping-cart"></i> Магазин</a>
 							<a href="/about/reputation" class="btn btn-outline-primary btn-block"><i data-feather="help-circle"></i> Помощь</a>
 						</div>
 					</div>
@@ -166,75 +133,25 @@
 						</ul>
 					</div>
 				</nav>
-			<main class="content">
-				<div class="container-fluid p-0">
-					{% if error %}
-						<div class="alert alert-danger alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				                <span aria-hidden="true">&times;</span>
-				            </button>
-							<div class="alert-message">
-								{{error|safe}}
-							</div>
-						</div>
-					{% endif %}
-					<div class="row">
-						<div class="col-12 col-xl-12">
-							<div class="card">
-								<div class="card-header">
-									<h3><center>Новое обсуждение</center></h3>
-								</div>
-								<div class="card-body">
-									<form action="/threads/new" method="POST">
-										<div class="form-row">
-											<div class="form-group col-md-12">
-												<label for="title">Название обсуждения</label>
-												<input type="text" class="form-control" placeholder="Почему Газпромбанк так называется?" required name="title" minlength="10">
-											</div>
-										</div>
-										<div class="form-row">
-											<div class="form-group col-md-12">
-												<label for="content">Опиши подробнее свой вопрос</label>
-												<textarea name="content" placeholder="Почему не Нефтьпромбанк и не Рыбпромбанк? Сможете объяснить? ;)" style="height: 500px;"></textarea>
-											</div>
-										</div>
-										<div class="form-row">
-											<div class="form-group col-md-12">
-												<label for="department">Департамент</label>
-												<select name="department" class="form-control mb-3">
-										          {% for department in departments %}
-										          	<option value="{{department}}">{{department}}</option>
-										          {% endfor %}
-										        </select>
-							             	</div>
-										</div>
-										<div class="form-group">
-											<label class="custom-control custom-checkbox m-0">
-							           	    	<input type="checkbox" class="custom-control-input" name="survey" id="issurvey" onchange="if (document.getElementById('issurvey').checked) {document.getElementById('survey').style.display='block';} else {document.getElementById('survey').style.display='none';}">
-							            	    <span class="custom-control-label" style="padding-top: 2px;">Добавить опрос</span>
-							             	</label>
-										</div>
-										<div id="survey" style="display: none;">
-											<input type="hidden" name="quantity" value="1">
-											<div id="variants">
-												<div class="form-row">
-													<div class="form-group col-md-12">
-														<input type="text" class="form-control" placeholder="Вариант 1" name="variant_1" minlength="1">
-													</div>
-												</div>
-											</div>
-											<button type="button" class="btn btn-success" onclick="addVariant();" style="margin-top: 5px;">Добавить вариант</button>
-											<button type="button" class="btn btn-danger" id="delete" style="display: none; margin-top: 5px;" onclick="deleteVariant();">Удалить вариант</button>
-											<br><br>
-										</div>
-										<button type="submit" class="btn btn-primary">Создать обсуждение</button>
-									</form>
+				<main class="content">
+					<div class="container-fluid p-0">
+						<div class="row">
+							<div class="col-12 col-lg-12 col-xxl-9 d-flex">
+								<div class="card flex-fill">
+									<div class="card-header">
+										<h5 class="card-title mb-0"><b>Товар "{{good.name}}"</b></h5>
+									</div>
+									<div class="card-body">
+										{{good.description|safe}}
+										<hr>
+										<a href="/shop" class="btn btn-outline-primary"><i data-feather="arrow-left"></i> Назад в магазин</a>
+										<a href="/buy/{{good.id}}" class="btn btn-outline-primary {% if good.cost > user.rating %}disabled{% endif %}"><i data-feather="dollar-sign"></i> Купить ({{good.cost}} &#9733;)</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</main>
+				</main>
 				<footer class="footer">
 					<div class="container-fluid">
 						<div class="row text-muted">

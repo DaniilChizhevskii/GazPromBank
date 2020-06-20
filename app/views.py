@@ -249,7 +249,52 @@ def generateInvitesProcess():
 
 @app.route('/shop')
 def showShop():
-	return render_template('shop.html', user=getUser(session['id']), goods=getGoods())
+	if isNull(request.args.get('success')):
+		success = None
+	elif request.args.get('success') == 'true':
+		success = True
+	else:
+		success = False
+	return render_template('shop.html', user=getUser(session['id']), goods=getGoods(), success=success)
+
+@app.route('/shop/<identifier>')
+def showGood(identifier):
+	good = getGood(identifier)
+	if good:
+		return render_template('good.html', user=getUser(session['id']), good=good)
+	return redirect('/threads?from=not_found')
+
+@app.route('/shop/accept/<identifier>')
+def acceptOrderProcess(identifier):
+	user = getUser(session['id'])
+	if not user['moderator']:
+		redirect('/threads?from=not_found')
+	acceptOrder(identifier)
+	return render_template('orders.html', user=user, orders=getOrders(), success=True)
+
+@app.route('/shop/reject/<identifier>')
+def rejectOrderProcess(identifier):
+	user = getUser(session['id'])
+	if not user['moderator']:
+		redirect('/threads?from=not_found')
+	rejectOrder(identifier)
+	return render_template('orders.html', user=user, orders=getOrders(), success=True)
+
+@app.route('/buy/<identifier>')
+def buyGoodProcess(identifier):
+	user = getUser(session['id'])
+	result = buyGood(user, identifier)
+	if result:
+		return redirect('/shop?success=true')
+	else:
+		return redirect('/shop?success=false')
+
+@app.route('/orders')
+def viewOrders():
+	user = getUser(session['id'])
+	if not user['moderator']:
+		redirect('/threads?from=not_found')
+	return render_template('orders.html', user=user, orders=getOrders(), success=request.args.get('success'))
 
 @app.errorhandler(404)
 def toThreads(error):

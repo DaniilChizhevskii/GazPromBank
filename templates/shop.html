@@ -42,6 +42,11 @@
 								<i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Инвайты</span>
 								</a>
 							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link" href="/orders">
+								<i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Заказы</span>
+								</a>
+							</li>
 						{% endif %}
 						<li class="sidebar-item">
 							<a class="sidebar-link" href="/logout">
@@ -83,7 +88,7 @@
 										Новых уведомлений нет
 										{% endif %}
 									</div>
-									<div class="list-group">
+									<div class="list-group" style="max-height: 500px; overflow: auto;">
 										{% if user.notifications %}
 											{% for notification in user.notifications %}
 												<a href="{{notification.href}}" class="list-group-item">
@@ -130,6 +135,26 @@
 				</nav>
 				<main class="content">
 					<div class="container-fluid p-0">
+						{% if success==True %}
+							<div class="alert alert-success alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					                <span aria-hidden="true">&times;</span>
+					            </button>
+								<div class="alert-message">
+									Твой заказ подан в обработку. Ты получишь уведомление о её окончании.
+								</div>
+							</div>
+						{% endif %}
+						{% if success==False %}
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					                <span aria-hidden="true">&times;</span>
+					            </button>
+								<div class="alert-message">
+									Тебе не хватает репутации для покупки товара.
+								</div>
+							</div>
+						{% endif %}
 						<div class="row">
 							<div class="col-12 col-lg-12 col-xxl-9 d-flex">
 								<div class="card flex-fill">

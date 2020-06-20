@@ -58,6 +58,11 @@
 								<i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Инвайты</span>
 								</a>
 							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link" href="/orders">
+								<i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Заказы</span>
+								</a>
+							</li>
 						{% endif %}
 						<li class="sidebar-item">
 							<a class="sidebar-link" href="/logout">
@@ -99,7 +104,7 @@
 										Новых уведомлений нет
 										{% endif %}
 									</div>
-									<div class="list-group">
+									<div class="list-group" style="max-height: 500px; overflow: auto;">
 										{% if user.notifications %}
 											{% for notification in user.notifications %}
 												<a href="{{notification.href}}" class="list-group-item">

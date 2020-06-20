@@ -398,3 +398,64 @@ def getGoods():
 	cursor = conn.cursor()
 	cursor.execute('SELECT * FROM goods')
 	return cursor.fetchall()
+
+def getGood(identifier):
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT * FROM goods WHERE id="%s"' % identifier)
+	return cursor.fetchone()
+
+def buyGood(user, identifier):
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT * FROM goods WHERE id="%s"' % screen(identifier))
+	good = cursor.fetchone()
+	if good:
+		if good['cost'] > user['rating']:
+			return False
+		else:
+			cursor.execute('SELECT COUNT(*)+1 FROM orders')
+			count = cursor.fetchone()
+			count = count[count.keys()[0]]
+			cursor.execute('INSERT INTO orders VALUES (%s, %s, %s)' % (count, user['id'], identifier))
+			conn.commit()
+			sendNotification(user['id'], 'Твой заказ успешно создан', 'Мы приняли твой заказ на покупку товара в магазине.', 'primary', 'shopping-cart', '/shop')
+			changeReputation(user['id'], -1 * good['cost'])
+			return True
+
+def getOrders():
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT * FROM orders WHERE id > 0')
+	orders = cursor.fetchall()
+	for x in range(len(orders)):
+		orders[x] = dict(orders[x])
+		cursor.execute('SELECT name FROM users WHERE id=%s' % orders[x]['owner'])
+		orders[x]['name'] = cursor.fetchone()['name']
+		cursor.execute('SELECT name FROM goods WHERE id=%s' % orders[x]['good_id'])
+		orders[x]['title'] = cursor.fetchone()['name']
+	return orders
+
+def acceptOrder(identifier):
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT * FROM orders WHERE id="%s"' % screen(identifier))
+	order = cursor.fetchone()
+	cursor.execute('UPDATE orders SET id=-id WHERE id="%s"' % screen(identifier))
+	conn.commit()
+	sendNotification(order['owner'], 'Твой заказ успешно осуществлён', 'Спасибо за покупку!', 'success', 'shopping-cart', '/shop')
+
+def rejectOrder(identifier):
+	conn = sqlite3.connect(db_path)
+	conn.row_factory = sqlite3.Row
+	cursor = conn.cursor()
+	cursor.execute('SELECT * FROM orders WHERE id="%s"' % screen(identifier))
+	order = cursor.fetchone()
+	cursor.execute('UPDATE orders SET id=-id WHERE id="%s"' % screen(identifier))
+	conn.commit()
+	sendNotification(order['owner'], 'Твой заказ отклонён', 'Списанный баллы возвращены на твой баланс.', 'danger', 'shopping-cart', '/shop')
+	changeReputation(order['owner'], getGood(order['good_id'])['cost'])
