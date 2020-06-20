@@ -105,12 +105,12 @@ def newThreadProcess():
 	content = request.form.get('content')
 	if isNull(title):
 		return render_template('new_thread.html', user=user, title=title, content=content, error='Поле <b>Название обсуждения</b> является обязательным.')
+	identifier = createThread(user['id'], title, content)
 	if request.form.get('survey') == 'on':
 		survey = {}
 		for x in range(1, int(request.form.get('quantity')) + 1):
 			survey[request.form.get('variant_%s' % x)] = 0
-	identifier = createThread(user['id'], title, content)
-	addSurvey(identifier, survey)
+		addSurvey(identifier, survey)
 	return redirect('/thread/%s' % identifier)
 
 @app.route('/threads/<page>')
