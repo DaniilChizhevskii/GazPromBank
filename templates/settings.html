@@ -233,7 +233,7 @@
 													<label for="department">Департамент</label>
 													<select name="department" class="form-control mb-3">
 											          {% for department in departments %}
-											          	<option value="{{department}}">{{department}}</option>
+											          	<option value="{{department}}" {% if department==user.department %}selected{% endif %}>{{department}}</option>
 											          {% endfor %}
 											        </select>
 								             	</div>
