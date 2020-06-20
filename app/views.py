@@ -45,7 +45,7 @@ def loginProcess():
 
 @app.route('/register', methods=['GET'])
 def registerPage():
-	return render_template('register.html')
+	return render_template('register.html', closed=closed)
 
 @app.route('/register', methods=['POST'])
 def registerProcess():
@@ -54,13 +54,13 @@ def registerProcess():
 	email = request.form.get('email').lower()
 	password = request.form.get('password')
 	if isNull(invite) or isNull(name) or isNull(email) or isNull(password):
-		return render_template('register.html', error='null')
+		return render_template('register.html', error='null', closed=closed)
 	if not validate_email(email):
-		return render_template('register.html', error='email')
+		return render_template('register.html', error='email', closed=closed)
 	if len(password) < 8:
-		return render_template('register.html', error='password')
-	if not validateInvite(invite):
-		return render_template('register.html', error='invite')
+		return render_template('register.html', error='password', closed=closed)
+	if closed and not validateInvite(invite):
+		return render_template('register.html', error='invite', closed=closed)
 	registerUser(name, email, password)
 	return render_template('login.html', error='correct')
 

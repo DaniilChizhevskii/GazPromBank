@@ -8,6 +8,7 @@ debug = True
 port = int(os.environ.get("PORT", 443))
 db_path = os.path.join(home, 'app.db')
 domain = 'gazprom.topstack.dev'
+closed = False
 
 reputationRates = {
 	'comment': {
