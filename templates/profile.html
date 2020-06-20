@@ -180,7 +180,7 @@
 								  <strong class="d-inline-block mb-2">Комментариев: {{stats[1]}} <i data-feather="message-circle"></i></strong>
 								  <strong class="d-inline-block mb-2">Значков: {{profile.badges.__len__()}} <i data-feather="award"></i></strong>
 								  {% for badge in profile.badges %}
-								  	<button type="button" class="btn btn-outline-primary" style="margin-top: 5px; width: 100%;">{{badge}}</button>
+								  	<button type="button" class="btn btn-outline-primary" style="margin-top: 5px; width: 100%;"><i data-feather="award"></i> {{badge}}</button>
 								  {% endfor %}
 								  {% if profile.id != user.id and user.moderator %}
 								  	{% if profile.blocked %}
