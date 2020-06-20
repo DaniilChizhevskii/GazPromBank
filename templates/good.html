@@ -145,8 +145,12 @@
 									<div class="card-body">
 										{{good.description|safe}}
 										<hr>
-										<a href="/shop" class="btn btn-outline-primary"><i data-feather="arrow-left"></i> Назад в магазин</a>
-										<a href="/buy/{{good.id}}" class="btn btn-outline-primary {% if good.cost > user.rating %}disabled{% endif %}"><i data-feather="dollar-sign"></i> Купить ({{good.cost}} &#9733;)</a>
+										<div class="col-md-12">
+											<img src="/static/img/shop/{{good.id}}.png" style="max-width:100%;">
+										</div>
+										<hr>
+										<a href="/shop" class="btn btn-outline-primary" style="margin-top: 10px;"><i data-feather="arrow-left"></i> Назад в магазин</a>
+										<a href="/buy/{{good.id}}" class="btn btn-outline-primary {% if good.cost > user.rating %}disabled{% endif %}" style="margin-top: 10px;"><i data-feather="dollar-sign"></i> Купить ({{good.cost}} &#9733;)</a>
 									</div>
 								</div>
 							</div>

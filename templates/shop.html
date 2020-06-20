@@ -166,13 +166,15 @@
 										{% if goods %}
 											<thead>
 												<tr>
-													<th>Название</th>
-													<th>Цена в баллах</th>
+													<th></th>
+													<th width="80%">Название</th>
+													<th width="20%">Цена в баллах</th>
 												</tr>
 											</thead>
 											<tbody>
 												{% for good in goods %}
 													<tr>
+														<td><img src="/static/img/shop/{{good.id}}.png" style="width: 20px;"></td>
 														<td><a href="/shop/{{good.id}}">{{good.name}}</a></td>
 														<td>{{good.cost}} &#9733;</td>
 													</tr>
