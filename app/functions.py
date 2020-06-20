@@ -83,7 +83,7 @@ def registerUser(name, email, password):
 	cursor = conn.cursor()
 	cursor.execute('SELECT COUNT(*)+1 FROM users')
 	identifier = cursor.fetchone()[0]
-	cursor.execute('INSERT INTO users VALUES(%s, "%s", "%s", "%s", %s, %s, %s, "%s", "%s", %s, "%s", "Не указан")' % (identifier, screen(password), screen(email), 'Ура! Встречайте новичка!', 0, 0, 0, 'Пока этот пользователь ничего о себе не рассказал.', screen(name), 1, '[]'))
+	cursor.execute('INSERT INTO users VALUES(%s, "%s", "%s", "%s", %s, %s, %s, "%s", "%s", %s, "%s", "Не указан", "Не указан")' % (identifier, screen(password), screen(email), 'Ура! Встречайте новичка!', 0, 0, 0, 'Пока этот пользователь ничего о себе не рассказал.', screen(name), 1, '[]'))
 	conn.commit()
 	giveBadge(identifier, 'registered')
 	sendNotification(identifier, 'Поздравляем с регистрацией!', 'Теперь ты - полноценный пользователь нашего сервиса.', 'warning', 'sunrise', '/threads')
@@ -259,12 +259,12 @@ def voiceFor(owner, number, target, identifier):
 		cursor.execute('SELECT thread_id FROM comments WHERE id=%s' % identifier)
 		return cursor.fetchone()[0]
 
-def saveSettings(user_id, name, email, password, status, about, department):
+def saveSettings(user_id, name, email, password, status, about, department, unit):
 	if isNull(about):
 		about = 'Этот пользователь пока ничего о себе не написал...'
 	conn = sqlite3.connect(db_path)
 	cursor = conn.cursor()
-	cursor.execute('UPDATE users SET name="%s", email="%s", status="%s", description="%s", department="%s" WHERE id=%s' % (screen(name), screen(email), screen(status), screen(about), screen(department), user_id))
+	cursor.execute('UPDATE users SET name="%s", email="%s", status="%s", description="%s", department="%s", unit="%s" WHERE id=%s' % (screen(name), screen(email), screen(status), screen(about), screen(department), screen(unit), user_id))
 	conn.commit()
 	if len(password) >= 8:
 		cursor.execute('UPDATE users SET password="%s" WHERE id=%s' % (screen(password), user_id))

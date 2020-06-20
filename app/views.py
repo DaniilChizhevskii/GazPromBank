@@ -205,13 +205,14 @@ def saveSettingsProcess():
 	status = request.form.get('status')
 	about = request.form.get('about')
 	department = request.form.get('department')
+	unit = request.form.get('unit')
 	if isNull(name) or isNull(email) or isNull(status):
 		return render_template('settings.html', error='null', user=user)
 	if not validate_email(email):
 		return render_template('settings.html', error='email', user=user)
 	if not isNull(password) and len(password) < 8:
 		return render_template('settings.html', error='password', user=user)
-	saveSettings(user['id'], name, email, password, status, about, department)
+	saveSettings(user['id'], name, email, password, status, about, department, unit)
 	user = getUser(session['id'])
 	giveBadge(user['id'], 'autobiography')
 	return render_template('settings.html', error='success', user=user, departments=departments, domain=domain)
