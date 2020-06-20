@@ -100,14 +100,14 @@ def getUser(identifier):
 		user['notifications'] = getNotifications(identifier)
 	return user
 
-def createThread(owner, title, content, department):
+def createThread(owner, title, content, department, theme):
 	if isNull(content):
 		content = 'Автор обсуждения решил не раскрывать подробностей...'
 	conn = sqlite3.connect(db_path)
 	cursor = conn.cursor()
 	cursor.execute('SELECT COUNT(*)+1 FROM threads')
 	identifier = cursor.fetchone()[0]
-	cursor.execute('INSERT INTO threads VALUES(%s, %s, "%s", "%s", %s, 0, 0, 0, "open", "%s")' % (identifier, owner, screen(title), screen(content), int(time.time()), screen(department)))
+	cursor.execute('INSERT INTO threads VALUES(%s, %s, "%s", "%s", %s, 0, 0, 0, "open", "%s", "%s")' % (identifier, owner, screen(title), screen(content), int(time.time()), screen(department), screen(theme)))
 	conn.commit()
 	giveBadge(owner, 'first_thread')
 	cursor.execute('SELECT id FROM users WHERE department="%s"' % department)
