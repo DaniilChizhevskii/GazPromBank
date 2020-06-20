@@ -195,15 +195,8 @@
 	                              <div>
 	                                 <a class="btn btn-primary btn-sm" href="/profile/{{author.id}}"><span data-feather="user"></span> Профиль</a>
 	                              </div>
-	                              <div style="padding-top: 10px;">
-                                 	 {% if (thread.owner == user.id or user.moderator) and not thread.status == 'deleted' %}
-                                 	 	<a class="btn btn-primary btn-sm" href="/delete/thread/{{thread.id}}"><span data-feather="trash-2"></span></a>
-                                 	 {% endif %}
-	                                 <a class="btn btn-success btn-sm" href="/voice/up/thread/{{thread.id}}"><span data-feather="arrow-up"></span> {{thread.up}}</a> 
-	                                 <a class="btn btn-danger btn-sm" href="/voice/down/thread/{{thread.id}}"><span data-feather="arrow-down"></span> {{thread.down}}</a>
-	                                 <br><br><a><b>Департамент обсуждения:</b> {{thread.department}}.</a>
-	                                 <br><br><a><b>Тема:</b> {{thread.theme}}.</a>
-	                              </div>
+                                 <hr><a><b>Департамент обсуждения:</b> {{thread.department}}.</a>
+                                 <hr><a><b>Тема:</b> {{thread.theme}}.</a>
 	                           </div>
 	                        </div>
 	                     </div>
@@ -243,6 +236,13 @@
 											    </form>
 											{% endif %}
 									    {% endif %}
+									    <br><br>
+		                                <center>
+	                                 	{% if (thread.owner == user.id or user.moderator) and not thread.status == 'deleted' %}
+	                                 		<a class="btn btn-primary btn-sm" href="/delete/thread/{{thread.id}}"><span data-feather="trash-2"></span></a>
+	                                 	{% endif %}
+                                 	 	<a class="btn btn-success btn-sm" href="/voice/up/thread/{{thread.id}}"><span data-feather="arrow-up"></span> {{thread.up}}</a> 
+		                                <a class="btn btn-danger btn-sm" href="/voice/down/thread/{{thread.id}}"><span data-feather="arrow-down"></span> {{thread.down}}</a></center>
 	                                 </div>
 	                              </div>
 	                          </div>
