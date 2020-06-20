@@ -110,6 +110,10 @@ def createThread(owner, title, content, department):
 	cursor.execute('INSERT INTO threads VALUES(%s, %s, "%s", "%s", %s, 0, 0, 0, "open", "%s")' % (identifier, owner, screen(title), screen(content), int(time.time()), screen(department)))
 	conn.commit()
 	giveBadge(owner, 'first_thread')
+	cursor.execute('SELECT id FROM users WHERE department="%s"' % department)
+	for user in cursor.fetchall():
+		if user[0] != owner:
+			sendNotification(user[0], 'Новое обсуждение', 'В твоём департаменте опубликовано новое обсуждение', 'success', 'message-square', '/thread/%s' % identifier)
 	return identifier
 
 def statusToText(status):
@@ -194,6 +198,10 @@ def postComment(user, thread_id, content):
 	identifier = cursor.fetchone()[0]
 	cursor.execute('INSERT INTO comments VALUES(%s, %s, %s, "%s", %s, 0, 0, 0)' % (identifier, thread_id, user['id'], screen(content), int(time.time())))
 	conn.commit()
+	cursor.execute('SELECT owner FROM threads WHERE id=%s' % thread_id)
+	author = cursor.fetchone()[0]
+	if author != user['id']:
+		sendNotification(author, 'Новый комментарий в обсуждении', 'В твоём обсуждении опубликован новый комментарий', 'success', 'message-circle', '/thread/%s' % thread_id)
 	giveBadge(user['id'], 'first_comment')
 
 def isVoiced(target, identifier, owner):

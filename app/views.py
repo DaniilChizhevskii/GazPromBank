@@ -100,7 +100,7 @@ def listOfThreads():
 
 @app.route('/threads/new', methods=['GET'])
 def newThreadPage():
-	return render_template('new_thread.html', user=getUser(session['id']), departments=departments, selected_department=department)
+	return render_template('new_thread.html', user=getUser(session['id']), departments=departments)
 
 @app.route('/threads/new', methods=['POST'])
 def newThreadProcess():
