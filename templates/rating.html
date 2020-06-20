@@ -145,18 +145,18 @@
 									<table class="table table-hover my-0">
 										<thead>
 											<tr>
-												<th>Место</th>
+												<th class="d-none d-md-table-cell">Место</th>
 												<th width="60%">Имя</th>
 												<th width="20%">Рейтинг</th>
-												<th width="20%">Значки</th>
+												<th width="20%" class="d-none d-md-table-cell">Значки</th>
 											</tr>
 										</thead>
 										<tbody>
 											{% for x in range(top.__len__()) %}
 												<tr>
-													<td>{{x + 1}}</td>
+													<td class="d-none d-md-table-cell">{{x + 1}}</td>
 													<td><a href="/profile/{{top[x].id}}">{{top[x].name}}</a></td>
-													<td>{{top[x].rating}} &#9733;</td>
+													<td class="d-none d-md-table-cell">{{top[x].rating}} &#9733;</td>
 													<td>{{top[x].badges_length}} <i data-feather="award"></i></td>
 												</tr>
 											{% endfor %}
