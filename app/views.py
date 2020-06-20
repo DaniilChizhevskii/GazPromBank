@@ -92,11 +92,15 @@ def logout():
 
 @app.route('/threads')
 def listOfThreads():
-	return render_template('threads.html', user=getUser(session['id']), threads=getThreads(), message=request.args.get('from'))
+	department = request.args.get('department')
+	if isNull(department) or department not in departments:
+		return render_template('threads.html', user=getUser(session['id']), threads=getThreads(), message=request.args.get('from'), departments=departments)
+	else:
+		return render_template('threads_by_department.html', user=getUser(session['id']), threads=getThreadsByDepartment(department), departments=departments, selected_department=department)
 
 @app.route('/threads/new', methods=['GET'])
 def newThreadPage():
-	return render_template('new_thread.html', user=getUser(session['id']), departments=departments)
+	return render_template('new_thread.html', user=getUser(session['id']), departments=departments, selected_department=department)
 
 @app.route('/threads/new', methods=['POST'])
 def newThreadProcess():
