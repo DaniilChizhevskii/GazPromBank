@@ -155,7 +155,7 @@ def postCommentProcess(thread_id):
 def voiceProcess(number, target, identifier):
 	user = getUser(session['id'])
 	thread_id = voiceFor(user['id'], number, target, identifier)
-	if isinstance(thread_id, int):
+	if not isNull(thread_id) and (isinstance(thread_id, int) or thread_id.isdigit()):
 		return redirect('/thread/%s' % thread_id)
 	else:
 		return redirect('/threads?from=%s' % thread_id)
