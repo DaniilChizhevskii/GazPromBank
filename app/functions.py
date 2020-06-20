@@ -357,10 +357,10 @@ def unblock(user, identifier):
 		conn.commit()
 
 def sendEmail(toaddr, subject, html):
-    fromaddr = "iproud@topstack.dev"
-    mypass = "ProudAnyWhere"
+    fromaddr = email_address
+    mypass = email_password
     msg = MIMEMultipart()
-    msg['From'] = "iProud Support <iproud@topstack.dev>"
+    msg['From'] = "Service Support <%s>" % email_address
     msg['To'] = toaddr
     msg['Subject'] = subject
     msg.attach(MIMEText(html, 'html'))
