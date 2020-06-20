@@ -5,29 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="shortcut icon" href="/static/img/icons/favicon.png" />
-		<title>Настройки</title>
+		<title>Помощь</title>
 		<link href="/static/css/app.css" rel="stylesheet">
-		<!-- TinyMCE -->
-		<script src="https://cdn.tiny.cloud/1/vqxsowjcxwejxijgazyh8zz0xjzt0wg6cm2qbkrujfdigxup/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-		<script>
-	    tinymce.init({
-	      selector: 'textarea',
-	      language: 'ru',
-		  init_instance_callback : function(editor) {
-		    var freeTiny = document.querySelector('.tox .tox-notification--in');
-		   freeTiny.style.display = 'none';
-		  }});
-	  	</script>
-	  	<script>
-	  		function setAvatar(number) {
-	  			document.location.href = '/settings/avatar/' + number;
-	  		}
-	  	</script>
-	  	<style>
-	  		.tox-statusbar__branding {
-	  			display: none;
-	  		}
-	  	</style>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -52,7 +31,7 @@
 							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Профиль</span>
 							</a>
 						</li>
-						<li class="sidebar-item active">
+						<li class="sidebar-item">
 							<a class="sidebar-link" href="/settings">
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Настройки</span>
 							</a>
@@ -82,7 +61,7 @@
 								Значков: {{user.badges.__len__()}}.
 							</div>
 							<a href="/shop" class="btn btn-outline-primary btn-block"><i data-feather="shopping-cart"></i> Магазин</a>
-							<a href="/help" class="btn btn-outline-primary btn-block"><i data-feather="help-circle"></i> Помощь</a>
+							<a href="/help" class="btn btn-outline-primary btn-block disabled"><i data-feather="help-circle"></i> Помощь</a>
 						</div>
 					</div>
 				</div>
@@ -200,170 +179,50 @@
 							<div class="col-12 col-xl-12">
 								<div class="card">
 									<div class="card-header">
-										<h3><center>Настройки профиля</center></h3>
+										<h3><center>О сервисе</center></h3>
 									</div>
 									<div class="card-body">
-										<form action="/settings" method="POST">
-											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for="name">Имя</label>
-													<input type="text" class="form-control" placeholder="Иванов Иван" required value="{{user.name}}" name="name">
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for="email">Электронная почта</label>
-													<input type="email" class="form-control" placeholder="mail@example.com" required value="{{user.email}}" name="email">
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for="password">Пароль (если хочешь сменить)</label>
-													<input type="password" class="form-control" placeholder="••••••••" name="password">
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for="status">Статус</label>
-													<input type="text" class="form-control" placeholder="Я тут самый крутой, если не знали!" name="status" required value="{{user.status}}">
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for="about">О себе</label>
-													<textarea name="about" placeholder="Работаю в Газпромбанке уже целый день." style="height: 500px;">{{user.description}}</textarea>
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for="department">Департамент</label>
-													<select name="department" class="form-control mb-3">
-											          {% for department in departments %}
-											          	<option value="{{department}}" {% if department==user.department %}selected{% endif %}>{{department}}</option>
-											          {% endfor %}
-											        </select>
-								             	</div>
-											</div>
-											<button type="submit" class="btn btn-primary">Сохранить настройки</button>
-										</form>
+										<h4>Зачем нужен этот сервис?</h4>
+										<p>Сервис предназначен для удобного обсуждения, и, главное, <b>решения</b> внутрикорпоративных проблем. Проблемы от <b>"в моём отделе нет кофеварки"</b> до <b>"меня не устраивает зарплата"</b>. После обсуждения темы участниками её проверяют модераторы и обращаются к менеджерам, которые, в свою очередь, реагируют и решают поставленную участниками сообщества проблему.</p>
+										<h4>Зачем мне пользоваться данным сервисом?</h4>
+										<p>Потому что ты <b>можешь повлиять</b> на рабочую среду, улучшить её. Да-да, именно ты, ведь важен голос каждого работника из каждого отдела каждого департамента. Вместе <b>мы делаем компанию лучше</b>!</p>
+										<p>Стоит заметить, что <b>активные участники сообщества поощряются</b>. Но о этом позже ;)</p>
 									</div>
 								</div>
 								<div class="card">
 									<div class="card-header">
-										<h3><center>Выбор аватара</center></h3>
+										<h3><center>Как начать пользоваться сервисом?</center></h3>
 									</div>
 									<div class="card-body">
-										<div class="form-row">
-											{% for y in range(1, 5) %}
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/{{y}}.png" style="height: 100px; cursor:pointer;" onclick="setAvatar({{y}});">
-												</div>
-											{% endfor %}
-										</div>
-										<div class="form-row">
-											{% for y in range(11, 15) %}
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/{{y}}.png" style="height: 100px; cursor:pointer;" onclick="setAvatar({{y}});">
-												</div>
-											{% endfor %}
-										</div>
-										{% if user.rating > 50 %}
-											<div class="form-row">
-												{% for y in range(5, 9) %}
-													<div class="form-group col-md-3">
-														<img src="/static/img/avatars/{{y}}.png" style="height: 100px; cursor:pointer;" onclick="setAvatar({{y}});">
-													</div>
-												{% endfor %}
-											</div>
-											<div class="form-row">
-												{% for y in range(15, 19) %}
-													<div class="form-group col-md-3">
-														<img src="/static/img/avatars/{{y}}.png" style="height: 100px; cursor:pointer;" onclick="setAvatar({{y}});">
-													</div>
-												{% endfor %}
-											</div>
-										{% else %}
-											<center><h4><b>Доступно с 50+ репутации</b></h4></center>
-											<div class="form-row">
-												{% for y in range(5, 9) %}
-													<div class="form-group col-md-3">
-														<img src="/static/img/avatars/{{y}}.png" style="height: 100px; opacity:.25;">
-													</div>
-												{% endfor %}
-											</div>
-											<div class="form-row">
-												{% for y in range(15, 19) %}
-													<div class="form-group col-md-3">
-														<img src="/static/img/avatars/{{y}}.png" style="height: 100px; opacity:.25;">
-													</div>
-												{% endfor %}
-											</div>
-										{% endif %}
-										{% if user.rating > 100 %}
-											<div class="form-row">
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/9.png" style="height: 100px; cursor:pointer;" onclick="setAvatar(9);">
-												</div>
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/10.png" style="height: 100px; cursor:pointer;" onclick="setAvatar(10);">
-												</div>
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/19.png" style="height: 100px; cursor:pointer;" onclick="setAvatar(19);">
-												</div>
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/20.png" style="height: 100px; cursor:pointer;" onclick="setAvatar(20);">
-												</div>
-											</div>
-											<div class="form-row">
-												{% for y in range(21, 25) %}
-													<div class="form-group col-md-3">
-														<img src="/static/img/avatars/{{y}}.png" style="height: 100px; cursor:pointer;" onclick="setAvatar({{y}});">
-													</div>
-												{% endfor %}
-											</div>
-										{% else %}
-											<center><h4><b>Доступно со 100+ репутации</b></h4></center>
-											<div class="form-row">
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/9.png" style="height: 100px; opacity:.25;">
-												</div>
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/10.png" style="height: 100px; opacity:.25;">
-												</div>
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/19.png" style="height: 100px; opacity:.25;">
-												</div>
-												<div class="form-group col-md-3">
-													<img src="/static/img/avatars/20.png" style="height: 100px; opacity:.25;">
-												</div>
-											</div>
-											<div class="form-row">
-												{% for y in range(21, 25) %}
-													<div class="form-group col-md-3">
-														<img src="/static/img/avatars/{{y}}.png" style="height: 100px; opacity:.25;">
-													</div>
-												{% endfor %}
-											</div>
-										{% endif %}
+										<h4>1. Создавай обсуждения.</h4>
+										<p>Для этого воспользуйся кнопкой <b>"Новое обсуждение"</b>. Просто поставь проблему (при необходимости добавив опрос) и опубликуй обсуждение. Другие участники смогут <b>голосовать за тему</b>, <b>участвовать в опросе</b> и <b>оставлять комментарии</b>. Не забывай <b>следить за реакцией</b> на свои публикации!</p>
+										<h4>2. Участвуй в опросах.</h4>
+										<p>Если ты считаешь, что проблема, поставленная в обсуждении, <b>заслуживает внимания</b> - оставь свой голос. Мы внимательно следим за происходящим в сообществе и всегда <b>готовы улучшать нашу компанию</b>.</p>
+										<h4>3. Голосуй за и против.</h4>
+										<p>Ты всегда <b>можешь оставить свой голос</b> не только в опросе, но и оставить своё мнение к <b>обсуждению</b> или <b>комментарию</b>. А ещё так ты можешь поощрить автора сообщения!</p>
+										<h4>4. Оставляй комментарии.</h4>
+										<p>Не забывай - твоё мнение <b>важно для нас</b>. Оставляй комментарии, если ты считаешь это необходимым, веди дискуссии, отстаивай своё мнение - именно так ты <b>можешь изменить компанию</b>.</p>
 									</div>
 								</div>
 								<div class="card">
 									<div class="card-header">
-										<h3><center>Поделиться профилем</center></h3>
+										<h3><center>О репутации и значках</center></h3>
 									</div>
 									<div class="card-body">
-										<div class="form-row">
-											<div class="form-group col-md-12">
-												<label for="url">Постоянная ссылка на твой профиль:</label>
-												<input type="text" class="form-control" required value="https://{{domain}}/profile/{{user.id}}" name="url" disabled="disabled">
-											</div>
-											<div class="form-group col-md-12" style="text-align: center!important;">
-												<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=20&color=white&data=https://{{domain}}/profile/{{user.id}}">
-											</div>
-											<div class="form-group col-md-12">
-												<a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=20&color=white&data=https://{{domain}}/profile/{{user.id}}" class="btn btn-outline-primary btn-block"><i data-feather="download"></i> Скачать QR</a>
-											</div>
-										</div>
+										<h4>Что это такое?</h4>
+										<p><b>Репутация</b> - это твой капитал внутри нашего сервиса. Ты получаешь баллы репутации за <b>активность в обсуждениях</b> и можешь тратить их на покупку товаров в нашем <a href="/shop">магазине</a>.</p>
+										<p><b>Значки</b> - это мини-достижения, которые еще и добавляют <b>дополнительную репутацию</b> к твоему рейтингу. Точный список значков и количество репутации, получаемое за них, не разглашается (ведь так будет совсем неинтересно).</p>
+										<h4>Как их получить?</h4>
+										<p>Вот какое количество баллов ты получаешь за активность на сервисе:</p>
+										<ul>
+											<li>положительный голос за твоё обсуждение: <b><a style="color: green;">+5 баллов</a></b>.</li>
+											<li>отрицательный голос за твоё обсуждение: <b><a style="color: red;">-2 балла</a></b>.</li>
+											<li>положительный голос за твой комментарий: <b><a style="color: green;">+2 балла</a></b>.</li>
+											<li>отрицательный голос за твой комментарий: <b><a style="color: red;">-1 балла</a></b>.</li>
+										</ul>
+										<p>За каждый из полученных значков к твоему рейтингу <b>добавляется от 5 до 30 баллов</b>.</p>
+										<h4>Как тратить товары в магазине?</h4>
+										<p>Просто <a href="/shop">перейди в него</a>, выбери интересующий тебя товар и нажми кнопку <b>"Купить"</b>. С твоего рейтинга спишется стоимость товара (учти, что для покупки регинг <b>должен превышать</b> стоимость). Когда заказ будет обработан, ты получишь соответсвующее уведомление и сможешь забрать покупку.</p>
 									</div>
 								</div>
 							</div>

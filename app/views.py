@@ -296,6 +296,10 @@ def viewOrders():
 		redirect('/threads?from=not_found')
 	return render_template('orders.html', user=user, orders=getOrders(), success=request.args.get('success'))
 
+@app.route('/help')
+def showHelp():
+	return render_template('help.html', user=getUser(session['id']))
+
 @app.errorhandler(404)
 def toThreads(error):
 	return redirect('/threads?from=dont_know')
