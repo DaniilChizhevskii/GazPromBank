@@ -136,46 +136,6 @@
 				</nav>
 				<main class="content">
 					<div class="container-fluid p-0">
-						{% if error=='none' %}
-							<div class="alert alert-danger alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					                <span aria-hidden="true">&times;</span>
-					            </button>
-								<div class="alert-message">
-									Одно или несколько полей не введены.
-								</div>
-							</div>
-						{% endif %}
-						{% if error == 'email' %}
-							<div class="alert alert-danger alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					                <span aria-hidden="true">&times;</span>
-					            </button>
-								<div class="alert-message">
-									Введённый адрес электронной почты некорректен.
-								</div>
-							</div>
-						{% endif %}
-						{% if error == 'password' %}
-							<div class="alert alert-danger alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					                <span aria-hidden="true">&times;</span>
-					            </button>
-								<div class="alert-message">
-									Минимальная длина пароля - 8 символов.
-								</div>
-							</div>
-						{% endif %}
-						{% if error == 'success' %}
-							<div class="alert alert-success alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					                <span aria-hidden="true">&times;</span>
-					            </button>
-								<div class="alert-message">
-									Настройки успешно сохранены.
-								</div>
-							</div>
-						{% endif %}
 						<div class="row">
 							<div class="col-12 col-xl-12">
 								<div class="card">
@@ -220,6 +180,7 @@
 											<li>отрицательный голос за твоё обсуждение: <b><a style="color: red;">-2 балла</a></b>.</li>
 											<li>положительный голос за твой комментарий: <b><a style="color: green;">+2 балла</a></b>.</li>
 											<li>отрицательный голос за твой комментарий: <b><a style="color: red;">-1 балла</a></b>.</li>
+											<li>"Спасибо" от другого пользователя: <b><a style="color: green;">+10 баллов</a></b>.</li>
 										</ul>
 										<p>За каждый из полученных значков к твоему рейтингу <b>добавляется от 5 до 30 баллов</b>.</p>
 										<h4>Как тратить товары в магазине?</h4>
